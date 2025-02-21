@@ -35,7 +35,7 @@ Avant de commencer, assurez-vous d'avoir installé :
 
 ### 📥 Cloner le projet
 ```bash
-git clone https://github.com/votre-utilisateur/ai-podcast-platform.git
+git clone https://github.com/BeyeSellem/ai-podcast-platform.git
 cd ai-podcast-platform
 ```
 
