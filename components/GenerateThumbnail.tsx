@@ -1,10 +1,10 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
-import { Loader } from "lucide-react";
 import { GenerateThumbnailProps } from "@/types";
+import { Loader } from "lucide-react";
 import { Input } from "./ui/input";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
@@ -24,11 +24,9 @@ const GenerateThumbnail = ({
   const [isImageLoading, setIsImageLoading] = useState(false);
   const imageRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
-
   const generateUploadUrl = useMutation(api.files.generateUploadUrl);
   const { startUpload } = useUploadFiles(generateUploadUrl);
   const getImageUrl = useMutation(api.podcasts.getUrl);
-
   const handleGenerateThumbnail = useAction(api.openai.generateThumbnailAction);
 
   const handleImage = async (blob: Blob, fileName: string) => {
@@ -57,15 +55,9 @@ const GenerateThumbnail = ({
 
   const generateImage = async () => {
     try {
-      if (!imagePrompt) {
-        toast({
-          title: "Please provide an AI Prompt to generate Thumbnail ",
-        });
-        return;
-      }
       const response = await handleGenerateThumbnail({ prompt: imagePrompt });
       const blob = new Blob([response], { type: "image/png" });
-      handleImage(blob, `thumbnail-${uuidv4()}.png`);
+      handleImage(blob, `thumbnail-${uuidv4()}`);
     } catch (error) {
       console.log(error);
       toast({ title: "Error generating thumbnail", variant: "destructive" });
@@ -73,6 +65,7 @@ const GenerateThumbnail = ({
   };
   const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
+
     try {
       const files = e.target.files;
       if (!files) return;
@@ -93,16 +86,19 @@ const GenerateThumbnail = ({
           type="button"
           variant="plain"
           onClick={() => setIsAiThumbnail(true)}
-          className={cn("", { "bg-black-6": isAiThumbnail })}
+          className={cn("", {
+            "bg-black-6": isAiThumbnail,
+          })}
         >
           Use AI to generate thumbnail
         </Button>
-
         <Button
           type="button"
           variant="plain"
           onClick={() => setIsAiThumbnail(false)}
-          className={cn("", { "bg-black-6": !isAiThumbnail })}
+          className={cn("", {
+            "bg-black-6": !isAiThumbnail,
+          })}
         >
           Upload custom image
         </Button>
@@ -121,15 +117,15 @@ const GenerateThumbnail = ({
               onChange={(e) => setImagePrompt(e.target.value)}
             />
           </div>
-          <div className=" w-full max-w-[200px]">
+          <div className="w-full max-w-[200px]">
             <Button
               type="submit"
-              className="text-16  bg-orange-1 py-4 font-bold text-white-1"
+              className="text-16 bg-orange-1 py-4 font-bold text-white-1"
               onClick={generateImage}
             >
               {isImageLoading ? (
                 <>
-                  Generating...
+                  Generating
                   <Loader size={20} className="animate-spin ml-2" />
                 </>
               ) : (
@@ -139,12 +135,7 @@ const GenerateThumbnail = ({
           </div>
         </div>
       ) : (
-        <div
-          className="image_div"
-          onClick={() => {
-            imageRef?.current?.click();
-          }}
-        >
+        <div className="image_div" onClick={() => imageRef?.current?.click()}>
           <Input
             type="file"
             className="hidden"
