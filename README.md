@@ -68,5 +68,5 @@ Ouvrez [http://localhost:3000](http://localhost:3000) dans votre navigateur pour
 
 ---
 📢 **Intéressé(e) par le projet ?** N'hésitez pas à **liker ⭐, forker et contribuer** !  
-💼 **Recruteurs ?** Ce projet démontre mon expertise en **Next.js, TypeScript et développement SaaS**. Contactez-moi sur [LinkedIn](https://www.linkedin.com/in/sellem-beye) ! 🚀
+💼 **Business ?** Ce projet démontre mon expertise en **Next.js, TypeScript et développement SaaS**. Contactez-moi sur [LinkedIn](https://www.linkedin.com/in/sellem-beye) ! 🚀
 
